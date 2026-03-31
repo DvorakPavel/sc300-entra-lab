@@ -11,7 +11,7 @@ Implement a structured admin model with a daily admin account, a role-assignable
 - Assigned the User Administrator role to GRP-LAB-ADMINS.
 - Confirmed that lab-admin is a member of GRP-LAB-ADMINS.
 - Verified that lab-admin receives User Administrator privileges indirectly through group membership.
-- Assigned the Global Administrator role to bg-admin-01 and bg-admin-02.
+- Assigned the Global Administrator role to lab-bg-admin-01 and lab-bg-admin-02.
 
 ## Result
 The lab now has a basic administrative model:
