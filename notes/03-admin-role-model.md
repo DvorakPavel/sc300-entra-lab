@@ -17,7 +17,7 @@ Implement a structured admin model with a daily admin account, a role-assignable
 The lab now has a basic administrative model:
 - bootstrap admin: initial tenant admin
 - daily admin: lab-admin
-- emergency admins: bg-admin-01 and bg-admin-02
+- emergency admins: lab-bg-admin-01 and lab-bg-admin-02
 
 ## Lessons learned
 - Role-assignable groups must be created correctly from the start and cannot be converted later.
