@@ -16,7 +16,7 @@ Create a clean custom identity layer inside the sandbox for future SC-300 lab ta
   - GRP-LAB-IT
   - GRP-LAB-HR
   - GRP-LAB-FIN
-  - GRP-LAB-ADMINS
+  - GRP-LAB-ADMINS as role-assignable group
 - Added the initial group memberships:
   - IT: lab-admin, lab-user-01, lab-user-02
   - HR: lab-user-03, lab-user-04
