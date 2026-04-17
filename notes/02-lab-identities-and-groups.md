@@ -1,7 +1,7 @@
 # Task 2 – Create lab identities and groups
 
 **Date:**  
-2026-3-30
+2026-03-30
 
 ## Goal
 Create a clean custom identity layer inside the sandbox for future SC-300 lab tasks.
