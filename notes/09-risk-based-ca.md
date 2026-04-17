@@ -1,7 +1,7 @@
 # Task 9 – Risk-based Conditional Access
 
 **Date:**  
-2026-04-17
+2026-04-15
 
 ## Goal
 Implement risk-based Conditional Access policies using Microsoft Entra Identity Protection.
