@@ -1,72 +1,36 @@
-# Task 16 – Conditional Access for Enterprise Application
+# Task 16 – Require MFA for Enterprise Application with Conditional Access
 
 **Date:**  
 2026-04-27
 
 ## Goal
+Create a Conditional Access policy to require multi-factor authentication for a specific Enterprise Application.
 
-Create a Conditional Access policy targeted to a specific Enterprise Application and
-require multi-factor authentication for that application only.
+## Policy name
+CA-Require-MFA-LAB-App-Registration-Test
 
----
-
-## Conditional Access Policy
-
-- Policy name: CA-Require-MFA-LAB-App-Registration-Test
-- Target users: Primary admin account
-- Target resource: LAB-App-Registration-Test
+## Scope
+- Users/Groups: Primary admin account
+- Resources: LAB-App-Registration-Test
 - Conditions: None
 - Grant control: Require multi-factor authentication
-- Policy mode: Report-only
+- Policy state: Report-only
 
-The policy was designed to apply MFA only when accessing the selected Enterprise
-Application, without affecting other applications or users in the tenant.
-
----
-
-## Target Scope
-
-The Conditional Access policy was scoped to:
-
-- Resource type: Resources (formerly cloud apps)
-- Include: Select resources
-- Selected resource: LAB-App-Registration-Test
-
-This confirms that the policy targets the Enterprise Application instance rather than
-the App Registration object.
-
----
-
-## Policy Evaluation
-
-A new sign-in event was generated for the application after the policy was created.
-
-The sign-in logs for the Enterprise Application show that the Conditional Access policy:
-
-- Was evaluated in report-only mode
-- Applied the MFA grant control
-- Returned the result: Report-only: Success
-
-This confirms that the policy was correctly targeted and successfully evaluated during
-the sign-in flow.
-
----
+## What I did
+- Created a Conditional Access policy for a specific Enterprise Application.
+- Scoped the policy to the primary admin account only.
+- Targeted the Enterprise Application LAB-App-Registration-Test.
+- Left additional conditions unconfigured.
+- Set the grant control to require multi-factor authentication.
+- Enabled the policy in Report-only mode.
+- Triggered a new sign-in event for the application.
+- Verified in sign-in logs that the policy was evaluated in Report-only mode.
 
 ## Result
+A Conditional Access policy was created to require MFA for the LAB-App-Registration-Test Enterprise Application, and policy evaluation was confirmed in sign-in logs with a Report-only success result.
 
-- The Conditional Access policy was created successfully.
-- The policy targets the correct Enterprise Application.
-- MFA is configured as the required grant control.
-- Report-only mode was used to safely validate the policy behavior.
-- The policy evaluation is visible in Enterprise Application sign-in logs.
-
----
-
-## Lessons Learned
-
-- Conditional Access for applications is applied to the Enterprise Application
-  (service principal), not to the App Registration object.
-- Report-only mode is the safest way to validate application-targeted CA policies.
-- Targeting a specific Enterprise Application allows precise access control.
-- MFA requirements can be scoped to individual applications without broader tenant impact.
-- Sign-in logs are the correct place to validate Conditional Access evaluation results.
+## Lessons learned
+- Conditional Access policies for applications must target the Enterprise Application, not the App Registration object.
+- Report-only mode is a safe way to validate application-targeted access controls.
+- MFA requirements can be scoped to a single application without affecting the rest of the tenant.
+- Sign-in logs are the correct place to confirm Conditional Access evaluation results.
