@@ -23,3 +23,11 @@ The lab now has a basic administrative model:
 - Role-assignable groups must be created correctly from the start and cannot be converted later.
 - Indirect role assignment through groups is cleaner and more scalable than assigning roles to users one by one.
 - Emergency access accounts should remain separate from day-to-day administration.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-03-admin-role-model/
+```
