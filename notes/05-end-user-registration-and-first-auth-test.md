@@ -23,3 +23,11 @@ The end-user registration flow worked and the pilot configuration was validated 
 - Combined registration provides a single place for users to register both MFA and SSPR methods.
 - End-user validation is essential because admin-side configuration alone does not prove that the user experience works.
 - Testing with a non-admin account is cleaner and more representative than testing with administrative identities.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-05-end-user-registration/
+```
