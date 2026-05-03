@@ -30,3 +30,11 @@ Risk-based Conditional Access policies were successfully configured and validate
 - Sign-in risk and user risk address different threat scenarios.
 - Report-only mode is essential when introducing risk-based policies.
 ``
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-09-risk-based-ca/
+```
