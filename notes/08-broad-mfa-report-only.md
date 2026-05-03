@@ -36,3 +36,11 @@ A tenant-wide MFA policy was successfully evaluated without enforcing MFA or ris
 - Report-only mode is critical before enforcing broad Conditional Access policies.
 - Emergency access accounts must always be excluded from tenant-wide MFA policies.
 - Sign-in logs provide clear insight into the future impact of MFA enforcement.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-08-broad-mfa-report-only/
+```
