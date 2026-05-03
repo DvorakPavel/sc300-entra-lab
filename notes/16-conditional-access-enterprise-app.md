@@ -34,3 +34,11 @@ A Conditional Access policy was created to require MFA for the LAB-App-Registrat
 - Report-only mode is a safe way to validate application-targeted access controls.
 - MFA requirements can be scoped to a single application without affecting the rest of the tenant.
 - Sign-in logs are the correct place to confirm Conditional Access evaluation results.
+
+- ## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-16-conditional-access-enterprise-app/
+```
