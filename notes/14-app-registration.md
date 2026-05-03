@@ -82,3 +82,11 @@ addressed in a subsequent task.
 - Client secrets represent credentials and must be protected.
 - Delegated permissions require user context and optional admin consent.
 - App registrations are the foundation for Enterprise Applications and consent flows.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-14-app-registration/
+```
