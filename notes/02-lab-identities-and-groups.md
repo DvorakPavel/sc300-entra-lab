@@ -30,3 +30,11 @@ A dedicated custom lab identity structure was created without modifying the exis
 - Keeping sample data untouched helps preserve the sandbox baseline.
 - Creating a separate LAB identity layer makes future lab tasks cleaner.
 - Break-glass accounts should stay simple and separate from normal admin workflows.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-02-lab-identities-and-groups/
+```
