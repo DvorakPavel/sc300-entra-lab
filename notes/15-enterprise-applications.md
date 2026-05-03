@@ -86,3 +86,11 @@ authentication flows function correctly.
 - Assignment requirement is a critical security control.
 - Admin consent centralizes delegated permission management.
 - Sign-in logs are the authoritative source for application runtime troubleshooting.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-15-enterprise-applications/
+```
