@@ -33,3 +33,11 @@ The User Administrator role became active through group-based PIM activation, wi
 - PIM for Groups can be used to control just-in-time access through group membership.
 - Group-based activation provides indirect privileged access without assigning the role directly to the user.
 ``
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-11-pim-admin-role/
+```
