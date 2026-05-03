@@ -45,9 +45,22 @@ The LAB-App-Registration-Test application was configured with the Microsoft Grap
 
 The end-user admin consent request flow was not fully tested because the lab application does not currently have a working application sign-in experience or redirect flow. Further validation would require a functional OAuth/OIDC sign-in flow or a test redirect URI.
 
+## Lessons learned
+
+- User consent settings control whether standard users can grant application permissions.
+- Restricting user consent reduces the risk of unauthorized or risky application access.
+- Admin consent workflow provides a controlled process for reviewing application permission requests.
+- Reviewers can be assigned to review requests, but approval still requires appropriate administrative permissions.
+- API permissions should be reviewed carefully before granting tenant-wide admin consent.
+- Microsoft Graph permissions such as Directory.Read.All should be treated as sensitive.
+- Requested API permissions are configured on the App Registration.
+- Granted permissions can be reviewed from the related Enterprise Application.
+- A full end-user consent request validation requires a working OAuth/OIDC application flow.
+
 ## Evidence
 
-Evidence folder:
+Evidence for this task is stored in:
 
 ```text
 evidence/task-18-user-consent-and-admin-consent-workflow/
+```
