@@ -32,3 +32,11 @@ The first Conditional Access baseline policy was created, validated in Report-on
 - A pilot group is better than targeting all users for the first CA test.
 - Break-glass exclusions become critical when policies are broadened beyond a small pilot group.
 - Enabling the policy only after validation provides a safer rollout approach.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-06-first-conditional-access/
+```
