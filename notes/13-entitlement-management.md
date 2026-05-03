@@ -95,3 +95,11 @@ a resilient and auditable governance process.
 - Approval, assignment, and expiration are handled automatically.
 - Access packages integrate cleanly with PIM and Access Reviews as part of a complete
   identity governance solution.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-13-entitlement-management/
+```
