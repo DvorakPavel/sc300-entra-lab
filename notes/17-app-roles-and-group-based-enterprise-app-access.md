@@ -69,3 +69,11 @@ Access is managed through the Enterprise Application, while the app roles themse
 - App roles represent application-level authorization, not tenant administration permissions.
 - Group-based app role assignment is useful for implementing least privilege access.
 - Nested group membership should not be relied on for Enterprise Application assignments.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+task-17-app-roles-and-group-based-enterprise-app-access
+```
