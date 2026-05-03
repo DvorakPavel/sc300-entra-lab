@@ -36,3 +36,11 @@ A tenant-wide Conditional Access policy was created to block legacy authenticati
 - Broad Conditional Access policies must exclude emergency access accounts.
 - Report-only mode is a safer first step before enforcing tenant-wide blocking controls.
 - Break-glass accounts should be tested before creating any broad access policy.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-07-block-legacy-auth/
+```
