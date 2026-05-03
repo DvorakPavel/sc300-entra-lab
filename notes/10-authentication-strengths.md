@@ -31,3 +31,11 @@ Administrative sign-ins were evaluated against phishing-resistant MFA requiremen
 - Phishing-resistant MFA should be reserved for privileged accounts.
 - Report-only mode is essential when introducing stricter authentication controls.
 ``
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-10-authentication-strengths/
+```
