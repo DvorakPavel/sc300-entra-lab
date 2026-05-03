@@ -24,3 +24,11 @@ A small authentication and password reset pilot was prepared for non-admin lab u
 - Authentication Methods policy is the recommended modern place to manage authentication methods.
 - SSPR should be rolled out to a selected pilot group first.
 - Combined registration makes MFA and SSPR registration easier for end users.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-04-auth-foundation-sspr/
+```
