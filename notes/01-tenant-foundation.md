@@ -22,3 +22,11 @@ The sandbox tenant was confirmed as active and ready for the next SC-300 lab tas
 ## Lessons learned
 - The sandbox uses a separate cloud-only admin identity.
 - Confirming tenant identity early helps avoid working in the wrong directory.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-01-tenant-foundation/
+```
