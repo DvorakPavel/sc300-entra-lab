@@ -35,7 +35,7 @@ A Conditional Access policy was created to require MFA for the LAB-App-Registrat
 - MFA requirements can be scoped to a single application without affecting the rest of the tenant.
 - Sign-in logs are the correct place to confirm Conditional Access evaluation results.
 
-- ## Evidence
+## Evidence
 
 Evidence for this task is stored in:
 
