@@ -46,3 +46,11 @@ Group membership was reviewed and automatically enforced based on the review dec
 - Self-reviews are suitable for validating access to internal or low-risk groups.
 - Automatic result application ensures governance actions are enforced without manual intervention.
 - Combining Access Reviews with PIM strengthens the overall least-privilege model.
+
+## Evidence
+
+Evidence for this task is stored in:
+
+```text
+evidence/task-12-access-reviews/
+```
