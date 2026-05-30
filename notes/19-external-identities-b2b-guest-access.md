@@ -18,7 +18,7 @@ Configure external collaboration settings, invite a B2B guest user, assign the g
 
 - Inbound access (default): All users and applications allowed
 - Outbound access (default): All users and applications allowed
-- No organization-specific overrides configured
+- No organisation-specific overrides configured
 
 ## Guest user
 
@@ -45,9 +45,9 @@ A B2B guest user was successfully invited, added to a lab group, and the full in
 ## Lessons learned
 
 - Guest users have User type Guest, which limits their default directory permissions compared to Member users.
-- B2B invitations create a federated identity — the guest authenticates using their home identity provider.
-- Cross-tenant access settings control which organizations can collaborate through B2B at the tenant level.
-- Guest invite restrictions determine who in the organization is allowed to send B2B invitations.
+- B2B invitations create a federated identity - the guest authenticates using their home identity provider.
+- Cross-tenant access settings control which organisations can collaborate through B2B at the tenant level.
+- Guest invite restrictions determine who in the organisation is allowed to send B2B invitations.
 - Guest users can be added to security groups and are subject to Conditional Access policies.
 - The invitation must be redeemed (accepted) before the guest can access tenant resources.
 - Audit logs record the invitation event for compliance and governance tracking.
