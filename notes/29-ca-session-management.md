@@ -1,7 +1,7 @@
 # Task 29 – Conditional Access: Session Management
 
 **Date:**
-2026-06-06
+2026-06-07
 
 ## Goal
 
