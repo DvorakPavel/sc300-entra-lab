@@ -41,7 +41,8 @@ A custom security attribute set was created with two attribute definitions demon
 - Attribute set names and attribute definitions are permanent — they cannot be renamed or deleted, only deactivated.
 - Predefined values enforce controlled vocabulary for attribute assignments. Free-text attributes allow flexible input.
 - Multi-value attributes support assigning multiple values to a single user (e.g. multiple project codes).
-- Attribute management requires dedicated roles — Attribute Definition Administrator for creating definitions and Attribute Assignment Administrator for assigning values.
+- Global Administrator and Privileged Role Administrator do not have custom security attribute permissions by default — the Attribute Definition Administrator role must be explicitly assigned before attribute sets can be created.
+- Attribute Assignment Administrator is required for assigning values to users.
 - Custom security attributes can be used in Conditional Access conditions, dynamic group membership rules, and entitlement management auto-assignment policies.
 
 ## Evidence
