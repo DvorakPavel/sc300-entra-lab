@@ -1,36 +1,45 @@
-# Task 10 – Authentication Strengths (Phishing-resistant MFA)
+# Task 10 – Authentication Strengths
 
-**Date:**  
+**Date:**
 2026-04-17
 
 ## Goal
-Enforce phishing-resistant MFA for administrative accounts using Authentication Strengths.
 
-## Policy name
-CA-Admin-Require-Phishing-Resistant-MFA
+Enforce phishing-resistant MFA for administrative accounts using Authentication Strengths in Conditional Access.
 
-## Scope
+## Policy configuration
+
+- Policy name: CA-Admin-Require-Phishing-Resistant-MFA
 - Users: GRP-LAB-ADMINS
 - Exclusions: Lab BG Admin 01, Lab BG Admin 02
 - Resources: All resources
-- Grant control: Require authentication strength (Phishing-resistant MFA)
+- Grant control: Require authentication strength → Phishing-resistant MFA
 - Policy state: Report-only
 
+## Authentication strength levels
+
+- Multifactor authentication: Password + SMS, Password + Authenticator push
+- Passwordless MFA: Microsoft Authenticator (passwordless), Windows Hello
+- Phishing-resistant MFA: FIDO2 security keys, Windows Hello for Business, certificate-based auth
+
 ## What I did
+
+- Reviewed the built-in authentication strength definitions in Entra.
 - Enabled Passkey (FIDO2) authentication for administrative accounts.
-- Created a Conditional Access policy requiring phishing-resistant MFA.
-- Scoped the policy to admin users only.
+- Created a CA policy requiring phishing-resistant MFA for the admin group.
 - Excluded emergency access accounts.
-- Set the policy to Report-only mode to evaluate impact safely.
+- Set the policy to Report-only mode to evaluate impact.
 
 ## Result
+
 Administrative sign-ins were evaluated against phishing-resistant MFA requirements without enforcement.
 
 ## Lessons learned
-- Authentication Strengths enforce the quality of MFA, not just MFA presence.
-- Phishing-resistant MFA should be reserved for privileged accounts.
-- Report-only mode is essential when introducing stricter authentication controls.
-``
+
+- Authentication Strengths enforce the quality of MFA, not just its presence — they define which methods are acceptable.
+- Phishing-resistant MFA should target privileged accounts first; standard MFA is sufficient for regular users.
+- The three built-in strength levels (MFA, Passwordless, Phishing-resistant) form a hierarchy — each is stricter than the previous.
+- Report-only mode is essential when introducing stricter authentication controls to avoid locking out admins.
 
 ## Evidence
 
