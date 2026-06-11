@@ -10,7 +10,7 @@ Verify access to the Microsoft 365 Developer sandbox and confirm the tenant foun
 ## Tenant configuration
 
 - Tenant type: Microsoft 365 E5 Developer Sandbox
-- Primary domain: *.onmicrosoft.com (redacted)
+- Primary domain: xxxxxx.onmicrosoft.com
 - Licenses: Microsoft 365 E5, Entra ID P2
 - Azure subscription: None (Entra-only lab)
 - Default user settings: Verified in Entra admin center
