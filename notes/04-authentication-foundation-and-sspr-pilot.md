@@ -1,29 +1,45 @@
-# Task 4 – Authentication foundation and SSPR pilot
+# Task 4 – Authentication Foundation & SSPR Pilot
 
-**Date:**  
+**Date:**
 2026-04-02
 
 ## Goal
+
 Configure a modern authentication pilot and enable self-service password reset for a selected lab group.
 
-## What I did
-- Used the modern Authentication methods policy as the configuration baseline.
-- Enabled Microsoft Authenticator for the pilot group.
-- Enabled SMS authentication for the pilot group.
-- Enabled Temporary Access Pass (TAP) for the pilot group.
-- Enabled self-service password reset (SSPR) for the selected pilot group.
-- Configured the reset process to require two methods.
+## Authentication methods enabled
 
-## Pilot scope
-GRP-LAB-HR
+- Microsoft Authenticator: Enabled for GRP-LAB-HR
+- SMS: Enabled for GRP-LAB-HR
+- Temporary Access Pass (TAP): Enabled for GRP-LAB-HR
+
+Configuration source: Authentication methods policy (modern, recommended over legacy per-user MFA)
+
+## SSPR configuration
+
+- Scope: GRP-LAB-HR (pilot group)
+- Methods required to reset: 2
+- Methods available: Mobile app notification, mobile app code, mobile phone (SMS)
+- Registration: Required at next sign-in
+- Re-confirmation interval: 180 days
+
+## What I did
+
+- Configured the Authentication methods policy as the modern baseline.
+- Enabled Microsoft Authenticator, SMS, and TAP for the pilot group.
+- Enabled SSPR for GRP-LAB-HR with two-method requirement.
+- Verified that combined registration is active (single registration for both MFA and SSPR).
 
 ## Result
-A small authentication and password reset pilot was prepared for non-admin lab users.
+
+A modern authentication and password reset pilot was prepared for non-admin lab users in the HR group.
 
 ## Lessons learned
-- Authentication Methods policy is the recommended modern place to manage authentication methods.
-- SSPR should be rolled out to a selected pilot group first.
-- Combined registration makes MFA and SSPR registration easier for end users.
+
+- Authentication Methods policy is the recommended place to manage methods — legacy per-user MFA settings should be avoided.
+- SSPR should be rolled out to a selected pilot group before tenant-wide enablement.
+- Combined registration simplifies the end-user experience by unifying MFA and SSPR enrollment.
+- TAP is useful for initial onboarding when a user has no registered methods yet.
 
 ## Evidence
 
