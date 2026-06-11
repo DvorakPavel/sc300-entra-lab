@@ -91,16 +91,14 @@ sc300-entra-lab/
 ```
 
 ## Key Takeaways
-
-Throughout this lab, I encountered and resolved real-world issues that go beyond textbook scenarios:
-
-- **Authentication strength vs. classic MFA** — "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are not interchangeable; the newer framework can behave differently even at the same MFA level.
-- **Phishing-resistant MFA limitations** — Cross-device passkey authentication via Microsoft Authenticator requires Bluetooth between desktop and phone. Without it, a physical FIDO2 key or Windows Hello for Business is needed.
-- **Global Admin ≠ unlimited permissions** — Global Administrator does not have Custom Security Attribute permissions by default; Attribute Definition Administrator must be explicitly assigned.
-- **CAE has no separate blade** — Continuous Access Evaluation is enabled by default; the "Customize" option in CA session controls is for restricting or disabling it, not enabling it.
-- **PowerShell WAM behavior** — Connect-MgGraph can hide the browser authentication window behind PowerShell; using `-UseDeviceCode` is a reliable workaround.
-- **Graph Explorer requires separate consent** — Permissions consented in other apps do not carry over to Graph Explorer; it needs its own consent.
-- **Report-only → Enforced workflow** — The production deployment pattern is: design → implement in report-only → monitor sign-in logs → enforce. This lifecycle was applied across all 11 CA policies.
+ 
+Things I learned doing the labs:
+ 
+- **"Require authentication strength" ≠ "Require MFA"** — These two CA Grant controls look equivalent but behave differently. The authentication strength framework is stricter and can reject sign-ins that classic MFA would accept.
+- **Phishing-resistant MFA needs hardware** — No FIDO2 key and no Bluetooth on desktop = no passkey authentication. Plan your MFA strategy around what your users actually have.
+- **Global Admin can't do everything** — Custom Security Attributes require a dedicated role (Attribute Definition Administrator). Global Admin is not enough.
+- **CAE is on by default** — There's no "enable" button. The Conditional Access option is for restricting it, not turning it on.
+- **Report-only → Enforced is the real workflow** — Deploy in report-only, monitor sign-in logs for impact, then enforce. This lifecycle was applied across all 11 CA policies in this lab.
 
 ## Tools & Technologies
 
