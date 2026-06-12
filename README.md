@@ -108,7 +108,7 @@ Microsoft Entra ID, Conditional Access, Identity Protection, PIM, Entitlement Ma
 
 ## Exam Reference
 
-This lab is aligned with the [SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300)
+This lab is aligned with the [SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300) (measured as of April 27, 2026)
 
 ## Author
 
