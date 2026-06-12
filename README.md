@@ -2,7 +2,9 @@
 
 33 hands-on tasks. Real M365 tenant. Real problems. Real fixes.
 
-I built a full Microsoft Entra ID environment from scratch — tenant hardening, Conditional Access, Identity Protection, PIM, entitlement management, PowerShell automation, and more — documenting every configuration, every troubleshooting session, and every lesson learned along the way.
+I built a full Microsoft Entra ID environment from scratch — tenant hardening, Conditional Access, Identity Protection, PIM, entitlement management, PowerShell bulk operations, and more — documenting every configuration, every troubleshooting session, and every lesson learned along the way.
+
+Every task maps directly to an [SC-300 exam objective](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300). Every screenshot is real evidence from a live tenant. The notes don't just show *what* was configured — they show *what went wrong* and how it was fixed.
 
 ## Environment
 
@@ -79,7 +81,7 @@ I built a full Microsoft Entra ID environment from scratch — tenant hardening,
 | MFA enforcement | All users and admins |
 | Risk-based policies | Sign-in risk + User risk (enforced) |
 | Legacy authentication | Blocked |
-| Identity Secure Score | Baseline 38% → pending refresh after hardening |
+| Identity Secure Score | Baseline 38% → XX% |
 
 ## Repository Structure
 
@@ -91,10 +93,10 @@ sc300-entra-lab/
 ```
 
 ## Key Takeaways
- 
-Things I learned doing the labs:
- 
-- **"Require authentication strength" ≠ "Require MFA"** — These two CA Grant controls look equivalent but behave differently. The authentication strength framework is stricter and can reject sign-ins that classic MFA would accept.
+
+Things I learned the hard way — not from docs, but from doing:
+
+- **"Require authentication strength" ≠ "Require MFA"** — These two CA Grant controls look equivalent, but behave differently. The authentication strength framework is stricter and can reject sign-ins that classic MFA would accept.
 - **Phishing-resistant MFA needs hardware** — No FIDO2 key and no Bluetooth on desktop = no passkey authentication. Plan your MFA strategy around what your users actually have.
 - **Global Admin can't do everything** — Custom Security Attributes require a dedicated role (Attribute Definition Administrator). Global Admin is not enough.
 - **CAE is on by default** — There's no "enable" button. The Conditional Access option is for restricting it, not turning it on.
@@ -106,8 +108,8 @@ Microsoft Entra ID, Conditional Access, Identity Protection, PIM, Entitlement Ma
 
 ## Exam Reference
 
-This lab is aligned with the [SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300) (skills measured as of April 27, 2026).
+This lab is aligned with the [SC-300 study guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300)
 
 ## Author
 
-**Pavel Dvořák** — [LinkedIn](https://www.linkedin.com/in/pavel-dvorak88/) | [GitHub](https://github.com/DvorakPavel)
+**Pavel Dvořák** — [LinkedIn](https://www.linkedin.com/in/pavel-dvorak88) | [GitHub](https://github.com/DvorakPavel)
