@@ -86,7 +86,6 @@ Every task maps directly to an [SC-300 exam objective](https://learn.microsoft.c
 ## Repository Structure
 
 ```
-sc300-entra-lab/
   notes/          # Configuration notes per task (what, why, how, lessons learned)
   evidence/       # Redacted screenshots organized by task
   README.md
