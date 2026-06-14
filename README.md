@@ -100,6 +100,8 @@ Things I learned the hard way — not from docs, but from doing:
 - **Global Admin can't do everything** — Custom Security Attributes require a dedicated role (Attribute Definition Administrator). Global Admin is not enough.
 - **CAE is on by default** — There's no "enable" button. The Conditional Access option is for restricting it, not turning it on.
 - **Report-only → Enforced is the real workflow** — Deploy in report-only, monitor sign-in logs for impact, then enforce. This lifecycle was applied across all 11 CA policies in this lab.
+- **Identity Secure Score checks deprecated policies** — Score evaluates risk-based policies through the legacy Identity Protection blade, not through Conditional Access. The legacy blade is now read-only (retiring October 2026) with the enforcement toggle greyed out — making those points unachievable.
+- **Break-glass accounts vs. Secure Score** — Break-glass accounts must be excluded from MFA per Microsoft's own best practice, but Score penalises every admin without MFA. The correct configuration and the good score are mutually exclusive.
 
 ## Tools & Technologies
 
