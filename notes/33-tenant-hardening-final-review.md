@@ -33,7 +33,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 
 ### Improvements applied
 
-- SSPR expanded from pilot group (GRP-LAB-HR) to All Users
+- SSPR expanded from the pilot group (GRP-LAB-HR) to All Users
 - MFA phone method bulk-assigned to all users via `New-MgUserAuthenticationPhoneMethod`
 - Admin account removed from Exclude on all CA policies
 - Result: 38.03% → 43.82% (+5.79%)
@@ -76,7 +76,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 - Total CA policies: 11
 - Enforced: 8
 - Report-only: 3 (intentionally — demo and lab-specific policies)
-- Emergency access accounts excluded from all policies
+- Emergency access accounts are excluded from all policies
 - Admin account covered by all CA policies 
 - SSPR: All users
 - Identity Secure Score: 43.82%
@@ -91,7 +91,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 - Tested passkey registration in Microsoft Authenticator — fails on desktop without Bluetooth for cross-device authentication.
 - Revoked sessions and confirmed successful sign-in with password + Authenticator push.
 - Confirmed the final state of all 11 Conditional Access policies.
-- Expanded SSPR from pilot group to All Users via Password Reset blade.
+- Expanded SSPR from the pilot group to All Users via the Password Reset blade.
 - Bulk-assigned MFA phone method to all users via PowerShell (`New-MgUserAuthenticationPhoneMethod`).
 - Investigated Identity Secure Score — discovered Score checks deprecated legacy Identity Protection blade instead of CA policies.
 - Navigated to legacy IP blade via direct Azure Portal URL, confirmed "Policy enforcement" toggle is greyed out (read-only).
@@ -109,12 +109,12 @@ The tenant was hardened by transitioning five CA policies from Report-only to En
 - Emergency access (break-glass) accounts must remain excluded from all CA policies to prevent lockout.
 - Daily admin accounts should NOT be excluded from CA policies — BG accounts serve as the safety net.
 - "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — the authentication strength framework can behave differently even when set to "Multifactor authentication" level.
-- Phishing-resistant MFA (passkeys) via Microsoft Authenticator requires Bluetooth between desktop and phone for cross-device authentication.
-- Identity Secure Score evaluates risk-based policies through the deprecated legacy Identity Protection blade, not through Conditional Access. The legacy blade is read-only (retiring October 2026) — making those Score points permanently unachievable. Known bug since 2022.
-- Break-glass accounts without MFA is correct security design, but Score penalizes it. Document the deliberate exception rather than "fixing" a gap that isn't one.
+- Phishing-resistant MFA (passkeys) via Microsoft Authenticator requires Bluetooth between the desktop and phone for cross-device authentication.
+- Identity Secure Score evaluates risk-based policies through the deprecated legacy Identity Protection blade, not through Conditional Access. The legacy blade is read-only (retiring October 2026) — making those Score points permanently unachievable.
+- Break-glass accounts without MFA is correct security design, but Score penalises it. Document the deliberate exception rather than "fixing" a gap that isn't one.
 - Bulk phone assignment via Graph API does not satisfy Score's MFA registration check — users must complete interactive registration themselves.
 - SSPR configured for a pilot group gives 0 Score points. Only "All users" counts.
-- Always investigate what Score actually checks before chasing the number. A low score with documented rationale demonstrates more expertise than a high score without context.
+- Always investigate what Score actually checks before chasing the number. A low score with a documented rationale demonstrates more expertise than a high score without context.
 
 ## Evidence
 
