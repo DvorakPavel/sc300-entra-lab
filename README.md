@@ -81,7 +81,7 @@ Every task maps directly to an [SC-300 exam objective](https://learn.microsoft.c
 | MFA enforcement | All users and admins |
 | Risk-based policies | Sign-in risk + User risk (enforced) |
 | Legacy authentication | Blocked |
-| Identity Secure Score | 38% → 43.82% (see [Key Takeaways](#key-takeaways)) |
+| Identity Secure Score | 38% → 63.07% (see [Key Takeaways](#key-takeaways)) |
 
 ## Repository Structure
 
@@ -100,7 +100,7 @@ Things I learned the hard way — not from docs, but from doing:
 - **Global Admin can't do everything** — Custom Security Attributes require a dedicated role (Attribute Definition Administrator). Global Admin is not enough.
 - **CAE is on by default** — There's no "enable" button. The Conditional Access option is for restricting it, not turning it on.
 - **Report-only → Enforced is the real workflow** — Deploy in report-only, monitor sign-in logs for impact, then enforce. This lifecycle was applied across all 11 CA policies in this lab.
-- **Identity Secure Score checks deprecated policies** — Score evaluates risk-based policies through the legacy Identity Protection blade, not through Conditional Access. The legacy blade is now read-only (retiring October 2026) with the enforcement toggle greyed out — making those points unachievable.
+- **Identity Secure Score needs patience** — Score initially showed 0 points for CA-based risk policies. After 4+ days, it finally recognised them, jumping the score from 38% to 63%. The documented 24-hour refresh cycle is misleading — real sync can take significantly longer.
 - **Break-glass accounts vs. Secure Score** — Break-glass accounts must be excluded from MFA per Microsoft's own best practice, but Score penalises every admin without MFA. The correct configuration and the good score are mutually exclusive.
 
 ## Tools & Technologies
