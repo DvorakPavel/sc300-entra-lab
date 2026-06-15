@@ -79,7 +79,7 @@ authentication flows function correctly.
 
 ---
 
-## Lessons Learned
+## Lessons learned
 
 - App Registrations define application identity, not access.
 - Enterprise Applications govern tenant-specific access and enforcement.
