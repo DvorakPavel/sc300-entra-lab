@@ -69,8 +69,6 @@ Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Sco
 - Phishing-resistant MFA via Authenticator requires Bluetooth for cross-device authentication. Without it, you need a physical FIDO2 key or Windows Hello.
 - Identity Secure Score checks deprecated legacy Identity Protection policies, not CA-based risk policies. Legacy blade is read-only — those points are permanently unachievable.
 - Break-glass accounts without MFA are a correct design, but Score penalises it. Document the exception rather than "fix" it.
-- Bulk Graph API phone assignment ≠ completed MFA registration. SSPR on pilot group = 0 Score points, must be All Users.
-- A low Score with a documented rationale shows more expertise than a high Score without context.
 
 ## Evidence
 
