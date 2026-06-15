@@ -44,7 +44,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 
 ### What didn't improve and why
 
-- **Risk policies (0/7 + 0/7)** — Score checks the deprecated Identity Protection blade, not CA policies. Both risk policies are enforced via CA, but Score gives 0 points. Legacy IP blade is read-only (retiring October 2026), "Policy enforcement" toggle is greyed out. Known bug on Microsoft Q&A since 2022, never fixed.
+- **Risk policies (0/7 + 0/7)** — Score checks the deprecated Identity Protection blade, not CA policies. Both risk policies are enforced via CA, but Score gives 0 points. Legacy IP blade is read-only (retiring October 2026), "Policy enforcement" toggle is greyed out.
 - **Admin MFA (3.33/10)** — Break-glass accounts excluded from MFA per Microsoft best practice. Score penalises every admin without MFA. The remaining 6.67 points are unachievable without violating emergency access design.
 - **MFA registration (0.67/9)** — Bulk phone assignment via Graph API doesn't count as completed registration. Users must interactively register at mysignins.microsoft.com.
 - **Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Not available on a developer tenant.
