@@ -1,17 +1,42 @@
 # Task 33 – Tenant Hardening & Final Review
 
 **Date:**
-2026-06-11
+2026-06-11 — 2026-06-15
 
 ## Goal
 
-Transition key Conditional Access policies from Report-only to Enforced mode to harden the tenant security posture and improve the Identity Secure Score.
+Transition key Conditional Access policies from Report-only to Enforced mode, harden the tenant security posture, and investigate Identity Secure Score improvement opportunities.
 
 ## Identity Secure Score
 
-- Score before hardening: ~38%
-- Target: 70%+
-- Score after hardening: pending refresh (up to 48 hours)
+- Score before hardening: 38.03%
+- Score after hardening: 43.82%
+
+### Score breakdown (6 active recommendations)
+
+- Enable policy to block legacy authentication: 7.11/8
+- Require multifactor authentication for administrative roles: 3.33/10
+- Ensure all users can complete multifactor authentication: 0.67/9
+- Protect all users with a user risk policy: 0/7
+- Protect all users with a sign-in risk policy: 0/7
+- Protect your tenant with Insider Risk condition in CA: 0/5
+
+### Unachievable Score points
+
+**Risk policies (0/14)** — Score evaluates risk-based policies through the deprecated Identity Protection blade, not through Conditional Access. Both sign-in risk and user risk policies are enforced via CA (the current Microsoft-recommended approach), but Score gives 0 points. The legacy IP blade is now read-only with a banner stating "will be retired on October 1, 2026." The "Policy enforcement" toggle is greyed out on Disabled — cannot be enabled. Known bug reported on Microsoft Q&A since 2022, acknowledged by Microsoft, never fixed.
+
+**Admin MFA (3.33/10)** — Score counts all admin accounts. Break-glass accounts are intentionally excluded from MFA per Microsoft best practice for emergency access. Score penalizes this. The remaining 6.67 points are unachievable without violating emergency access design.
+
+**MFA registration (0.67/9)** — Bulk phone assignment via Graph API (`New-MgUserAuthenticationPhoneMethod`) does not count as "completed registration." Score requires each user to interactively complete registration at mysignins.microsoft.com. Lab users never performed this step.
+
+**Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Separate product, separate license. Not available on a developer tenant.
+
+### Improvements applied
+
+- SSPR expanded from pilot group (GRP-LAB-HR) to All Users
+- MFA phone method bulk-assigned to all users via `New-MgUserAuthenticationPhoneMethod`
+- Admin account removed from Exclude on all CA policies
+- Result: 38.03% → 43.82% (+5.79%)
 
 ## Conditional Access policies switched to Enforced
 
@@ -37,8 +62,8 @@ Transition key Conditional Access policies from Report-only to Enforced mode to 
 
 - Original Grant control: Require authentication strength → Phishing-resistant MFA
 - Issue: No FIDO2 USB key, no biometrics on desktop, no Bluetooth for cross-device passkey
-- Changed to: Require multifactor authentication
-- Note: "Require authentication strength: Multifactor authentication" (dropdown) did not work — only the classic "Require multifactor authentication", the sign-in flow accepted checkbox
+- Changed to: Require multifactor authentication (classic checkbox)
+- Note: "Require authentication strength: Multifactor authentication" (dropdown) did not work — only the classic "Require multifactor authentication" checkbox was accepted by the sign-in flow
 
 ## Admin account hardening
 
@@ -51,12 +76,14 @@ Transition key Conditional Access policies from Report-only to Enforced mode to 
 - Total CA policies: 11
 - Enforced: 8
 - Report-only: 3 (intentionally — demo and lab-specific policies)
-- Emergency access accounts are excluded from all policies
-- Admin account covered by all CA policies (no longer excluded)
+- Emergency access accounts excluded from all policies
+- Admin account covered by all CA policies 
+- SSPR: All users
+- Identity Secure Score: 43.82%
 
 ## What I did
 
-- Recorded the Identity Secure Score before changes as a baseline (~38.03%).
+- Recorded the Identity Secure Score before changes as a baseline (38.03%).
 - Switched five Report-only Conditional Access policies to Enforced mode.
 - Removed primary admin account from Exclude on all enforced policies — only BG accounts remain excluded.
 - Encountered AADSTS50079 (MFA enrollment required) — confirmed CA enforcement works.
@@ -64,22 +91,30 @@ Transition key Conditional Access policies from Report-only to Enforced mode to 
 - Tested passkey registration in Microsoft Authenticator — fails on desktop without Bluetooth for cross-device authentication.
 - Revoked sessions and confirmed successful sign-in with password + Authenticator push.
 - Confirmed the final state of all 11 Conditional Access policies.
+- Expanded SSPR from pilot group to All Users via Password Reset blade.
+- Bulk-assigned MFA phone method to all users via PowerShell (`New-MgUserAuthenticationPhoneMethod`).
+- Investigated Identity Secure Score — discovered Score checks deprecated legacy Identity Protection blade instead of CA policies.
+- Navigated to legacy IP blade via direct Azure Portal URL, confirmed "Policy enforcement" toggle is greyed out (read-only).
+- Documented all unachievable Score points with root cause analysis.
+- Final Score after 48h refresh: 43.82%.
 
 ## Result
 
-The tenant security posture was hardened by transitioning five Conditional Access policies from Report-only to Enforced mode. This follows the production deployment pattern of monitoring in Report-only mode before enforcement. The final configuration includes 8 enforced and 3 intentionally Report-only policies.
+The tenant was hardened by transitioning five CA policies from Report-only to Enforced, expanding SSPR to all users, and bulk-assigning MFA phone methods. Identity Secure Score improved from 38.03% to 43.82%. Investigation revealed that ~33 additional points are unachievable due to platform limitations (deprecated legacy IP blade, break-glass account design, Purview license requirement).
 
 ## Lessons learned
 
 - Report-only to Enforced transition follows the recommended production workflow: deploy in Report-only, monitor sign-in logs for impact, then enforce.
-- Risk-based policies (sign-in risk and user risk) are among the highest contributors to the Identity Secure Score.
 - Not all policies should be enforced — app-specific demo policies and lab-specific session controls are intentionally left in Report-only.
-- Emergency access (break-glass) accounts must remain excluded from all Conditional Access policies to prevent lockout.
+- Emergency access (break-glass) accounts must remain excluded from all CA policies to prevent lockout.
 - Daily admin accounts should NOT be excluded from CA policies — BG accounts serve as the safety net.
-- Identity Secure Score updates are not immediate — changes can take up to 48 hours to reflect in the score.
 - "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — the authentication strength framework can behave differently even when set to "Multifactor authentication" level.
-- Phishing-resistant MFA (passkeys) via Microsoft Authenticator requires Bluetooth between desktop and phone for cross-device authentication. Without Bluetooth, a physical FIDO2 USB key or Windows Hello for Business is needed.
-- The hardening process demonstrates the full lifecycle: design → implement (Report-only) → validate → enforce.
+- Phishing-resistant MFA (passkeys) via Microsoft Authenticator requires Bluetooth between desktop and phone for cross-device authentication.
+- Identity Secure Score evaluates risk-based policies through the deprecated legacy Identity Protection blade, not through Conditional Access. The legacy blade is read-only (retiring October 2026) — making those Score points permanently unachievable. Known bug since 2022.
+- Break-glass accounts without MFA is correct security design, but Score penalizes it. Document the deliberate exception rather than "fixing" a gap that isn't one.
+- Bulk phone assignment via Graph API does not satisfy Score's MFA registration check — users must complete interactive registration themselves.
+- SSPR configured for a pilot group gives 0 Score points. Only "All users" counts.
+- Always investigate what Score actually checks before chasing the number. A low score with documented rationale demonstrates more expertise than a high score without context.
 
 ## Evidence
 
