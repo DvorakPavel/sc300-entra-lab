@@ -50,6 +50,6 @@ Risk-based Conditional Access policies were successfully configured and validate
 
 Evidence for this task is stored in:
 
-``text
+```text
 evidence/task-09-risk-based-ca/
-``
+```
