@@ -44,7 +44,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 | Sign-in risk policy | 0/7 | 6.22/7 | Same — severe delay, not the "permanent bug" initially assumed |
 | Legacy authentication | 7.11/8 | 7.41/8 | Minor improvement |
 | Admin MFA | 0/10 | 3.33/10 | Admin removed from CA exclusions |
-| MFA registration | 0.67/9 | 1.33/9 | Slight increase — bulk phone assignment partially counted |
+| MFA registration | 0.67/9 | 1.33/9 | Slight increase |
 | SSPR | 0 | scored | Expanded from pilot group to All Users |
 
 ### What still didn't improve and why
