@@ -5,120 +5,74 @@
 
 ## Goal
 
-Transition key Conditional Access policies from Report-only to Enforced mode, harden the tenant security posture, and investigate Identity Secure Score improvement opportunities.
+Transition key Conditional Access policies from Report-only to Enforced mode, harden the tenant security posture, and investigate Identity Secure Score.
 
-## Identity Secure Score
+## Conditional Access — final state
 
-- Score before hardening: 38.03%
-- Score after hardening: 43.82%
+| Policy | Status | Note |
+|---|---|---|
+| CA-Block-Legacy-Authentication | Enforced | unchanged |
+| CA-Pilot-HR-Require-MFA | Enforced | unchanged |
+| CA-Require-Terms-of-Use | Enforced | unchanged |
+| CA-Risk-SignIn-Require-MFA | Enforced | switched from Report-only |
+| CA-Risk-User-Force-Password-Change | Enforced | switched from Report-only |
+| CA-Admin-Require-Phishing-Resistant-MFA | Enforced | switched, adjusted Grant — see below |
+| CA-Require-MFA-All-Users | Enforced | switched from Report-only |
+| CA-Block-Untrusted-Countries | Enforced | switched from Report-only |
+| CA-Require-MFA-LAB-App-Registration-Test | Report-only | app-specific demo |
+| CA-Require-StepUp-Sensitive-Access | Report-only | authentication context demo |
+| CA-Session-Management | Report-only | session controls demo |
 
-### Score breakdown (6 active recommendations)
-
-- Enable policy to block legacy authentication: 7.11/8
-- Require multifactor authentication for administrative roles: 3.33/10
-- Ensure all users can complete multifactor authentication: 0.67/9
-- Protect all users with a user risk policy: 0/7
-- Protect all users with a sign-in risk policy: 0/7
-- Protect your tenant with Insider Risk condition in CA: 0/5
-
-### Unachievable Score points
-
-**Risk policies (0/14)** — Score evaluates risk-based policies through the deprecated Identity Protection blade, not through Conditional Access. Both sign-in risk and user risk policies are enforced via CA (the current Microsoft-recommended approach), but Score gives 0 points. The legacy IP blade is now read-only with a banner stating "will be retired on October 1, 2026." The "Policy enforcement" toggle is greyed out on Disabled — cannot be enabled. Known bug reported on Microsoft Q&A since 2022, acknowledged by Microsoft, never fixed.
-
-**Admin MFA (3.33/10)** — Score counts all admin accounts. Break-glass accounts are intentionally excluded from MFA per Microsoft best practice for emergency access. Score penalizes this. The remaining 6.67 points are unachievable without violating emergency access design.
-
-**MFA registration (0.67/9)** — Bulk phone assignment via Graph API (`New-MgUserAuthenticationPhoneMethod`) does not count as "completed registration." Score requires each user to interactively complete registration at mysignins.microsoft.com. Lab users never performed this step.
-
-**Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Separate product, separate license. Not available on a developer tenant.
-
-### Improvements applied
-
-- SSPR expanded from the pilot group (GRP-LAB-HR) to All Users
-- MFA phone method bulk-assigned to all users via `New-MgUserAuthenticationPhoneMethod`
-- Admin account removed from Exclude on all CA policies
-- Result: 38.03% → 43.82% (+5.79%)
-
-## Conditional Access policies switched to Enforced
-
-- CA-Risk-SignIn-Require-MFA: Report-only → On
-- CA-Risk-User-Force-Password-Change: Report-only → On
-- CA-Admin-Require-Phishing-Resistant-MFA: Report-only → On
-- CA-Require-MFA-All-Users: Report-only → On
-- CA-Block-Untrusted-Countries: Report-only → On
-
-## Conditional Access policies kept in Report-only
-
-- CA-Require-MFA-LAB-App-Registration-Test: app-specific demo policy
-- CA-Require-StepUp-Sensitive-Access: authentication context demo policy
-- CA-Session-Management: session controls demo policy
-
-## Previously enforced policies (unchanged)
-
-- CA-Block-Legacy-Authentication: On
-- CA-Pilot-HR-Require-MFA: On
-- CA-Require-Terms-of-Use: On
-
-## CA-Admin-Require-Phishing-Resistant-MFA adjustment
-
-- Original Grant control: Require authentication strength → Phishing-resistant MFA
-- Issue: No FIDO2 USB key, no biometrics on desktop, no Bluetooth for cross-device passkey
-- Changed to: Require multifactor authentication (classic checkbox)
-- Note: "Require authentication strength: Multifactor authentication" (dropdown) did not work — only the classic "Require multifactor authentication" checkbox was accepted by the sign-in flow
+**CA-Admin adjustment:** Original Grant was "Require authentication strength → Phishing-resistant MFA." Without FIDO2 key or Bluetooth for cross-device passkey, changed to classic "Require multifactor authentication" checkbox. The dropdown "Require authentication strength: Multifactor authentication" did not work — only the classic checkbox was accepted by the sign-in flow.
 
 ## Admin account hardening
 
 - Removed primary admin account from Exclude on all 8 enforced CA policies
 - Only break-glass accounts (lab-bg-admin-01, lab-bg-admin-02) remain excluded
-- Confirmed enforcement: sign-in correctly required MFA after exclusion removal (AADSTS50079)
+- Confirmed enforcement via AADSTS50079 after exclusion removal
 
-## Final tenant security posture
+## Identity Secure Score
 
-- Total CA policies: 11
-- Enforced: 8
-- Report-only: 3 (intentionally — demo and lab-specific policies)
-- Emergency access accounts are excluded from all policies
-- Admin account covered by all CA policies 
-- SSPR: All users
-- Identity Secure Score: 43.82%
+- Before: 38.03%
+- After: 43.82%
+
+### What improved
+
+- SSPR expanded from the pilot group to All Users
+- MFA phone method bulk-assigned to all users via `New-MgUserAuthenticationPhoneMethod`
+- Admin account removed from CA exclusions → admin MFA moved from 0/10 to 3.33/10
+
+### What didn't improve and why
+
+- **Risk policies (0/7 + 0/7)** — Score checks the deprecated Identity Protection blade, not CA policies. Both risk policies are enforced via CA, but Score gives 0 points. Legacy IP blade is read-only (retiring October 2026), "Policy enforcement" toggle is greyed out. Known bug on Microsoft Q&A since 2022, never fixed.
+- **Admin MFA (3.33/10)** — Break-glass accounts excluded from MFA per Microsoft best practice. Score penalises every admin without MFA. The remaining 6.67 points are unachievable without violating emergency access design.
+- **MFA registration (0.67/9)** — Bulk phone assignment via Graph API doesn't count as completed registration. Users must interactively register at mysignins.microsoft.com.
+- **Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Not available on a developer tenant.
 
 ## What I did
 
-- Recorded the Identity Secure Score before changes as a baseline (38.03%).
-- Switched five Report-only Conditional Access policies to Enforced mode.
-- Removed primary admin account from Exclude on all enforced policies — only BG accounts remain excluded.
-- Encountered AADSTS50079 (MFA enrollment required) — confirmed CA enforcement works.
-- Adjusted CA-Admin-Require-Phishing-Resistant-MFA from authentication strength to classic MFA due to lack of FIDO2 key and Bluetooth.
-- Tested passkey registration in Microsoft Authenticator — fails on desktop without Bluetooth for cross-device authentication.
-- Revoked sessions and confirmed successful sign-in with password + Authenticator push.
-- Confirmed the final state of all 11 Conditional Access policies.
-- Expanded SSPR from the pilot group to All Users via the Password Reset blade.
-- Bulk-assigned MFA phone method to all users via PowerShell (`New-MgUserAuthenticationPhoneMethod`).
-- Investigated Identity Secure Score — discovered Score checks deprecated legacy Identity Protection blade instead of CA policies.
-- Navigated to legacy IP blade via direct Azure Portal URL, confirmed "Policy enforcement" toggle is greyed out (read-only).
-- Documented all unachievable Score points with root cause analysis.
-- Final Score after 48h refresh: 43.82%.
+- Recorded Score baseline (38.03%).
+- Switched five CA policies from Report-only to Enforced.
+- Adjusted CA-Admin Grant from phishing-resistant to classic MFA (no FIDO2/Bluetooth).
+- Removed admin account from all CA exclusions, confirmed enforcement (AADSTS50079).
+- Expanded SSPR to All Users, bulk-assigned MFA phone method via Graph API.
+- Investigated Score — discovered legacy IP blade bug, confirmed toggle is greyed out.
+- Final Score after refresh: 43.82%.
 
 ## Result
 
-The tenant was hardened by transitioning five CA policies from Report-only to Enforced, expanding SSPR to all users, and bulk-assigning MFA phone methods. Identity Secure Score improved from 38.03% to 43.82%. Investigation revealed that ~33 additional points are unachievable due to platform limitations (deprecated legacy IP blade, break-glass account design, Purview license requirement).
+Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Score improved from 38.03% to 43.82%. Remaining ~33 unachievable points documented with root cause (deprecated legacy blade, break-glass design, Purview license).
 
 ## Lessons learned
 
-- Report-only to Enforced transition follows the recommended production workflow: deploy in Report-only, monitor sign-in logs for impact, then enforce.
-- Not all policies should be enforced — app-specific demo policies and lab-specific session controls are intentionally left in Report-only.
-- Emergency access (break-glass) accounts must remain excluded from all CA policies to prevent lockout.
-- Daily admin accounts should NOT be excluded from CA policies — BG accounts serve as the safety net.
-- "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — the authentication strength framework can behave differently even when set to "Multifactor authentication" level.
-- Phishing-resistant MFA (passkeys) via Microsoft Authenticator requires Bluetooth between the desktop and phone for cross-device authentication.
-- Identity Secure Score evaluates risk-based policies through the deprecated legacy Identity Protection blade, not through Conditional Access. The legacy blade is read-only (retiring October 2026) — making those Score points permanently unachievable.
-- Break-glass accounts without MFA is correct security design, but Score penalises it. Document the deliberate exception rather than "fixing" a gap that isn't one.
-- Bulk phone assignment via Graph API does not satisfy Score's MFA registration check — users must complete interactive registration themselves.
-- SSPR configured for a pilot group gives 0 Score points. Only "All users" counts.
-- Always investigate what Score actually checks before chasing the number. A low score with a documented rationale demonstrates more expertise than a high score without context.
+- "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — even at the same MFA level, they behave differently.
+- Phishing-resistant MFA via Authenticator requires Bluetooth for cross-device authentication. Without it, you need a physical FIDO2 key or Windows Hello.
+- Identity Secure Score checks deprecated legacy Identity Protection policies, not CA-based risk policies. Legacy blade is read-only — those points are permanently unachievable.
+- Break-glass accounts without MFA are a correct design, but Score penalises it. Document the exception rather than "fix" it.
+- Bulk Graph API phone assignment ≠ completed MFA registration. SSPR on pilot group = 0 Score points, must be All Users.
+- A low Score with a documented rationale shows more expertise than a high Score without context.
 
 ## Evidence
-
-Evidence for this task is stored in:
 
 ```text
 evidence/task-33-tenant-hardening-final-review/
