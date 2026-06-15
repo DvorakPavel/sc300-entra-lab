@@ -34,19 +34,23 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 ## Identity Secure Score
 
 - Before: 38.03%
-- After: 43.82%
+- After: 63.07%
 
 ### What improved
 
-- SSPR expanded from the pilot group to All Users
-- MFA phone method bulk-assigned to all users via `New-MgUserAuthenticationPhoneMethod`
-- Admin account removed from CA exclusions → admin MFA moved from 0/10 to 3.33/10
+| Recommendation | Before | After | Change |
+|---|---|---|---|
+| User risk policy | 0/7 | 6.48/7 | CA risk policies finally recognized after 4+ days |
+| Sign-in risk policy | 0/7 | 6.22/7 | Same — severe delay, not the "permanent bug" initially assumed |
+| Legacy authentication | 7.11/8 | 7.41/8 | Minor improvement |
+| Admin MFA | 0/10 | 3.33/10 | Admin removed from CA exclusions |
+| MFA registration | 0.67/9 | 1.33/9 | Slight increase — bulk phone assignment partially counted |
+| SSPR | 0 | scored | Expanded from pilot group to All Users |
 
-### What didn't improve and why
+### What still didn't improve and why
 
-- **Risk policies (0/7 + 0/7)** — Score checks the deprecated Identity Protection blade, not CA policies. Both risk policies are enforced via CA, but Score gives 0 points. Legacy IP blade is read-only (retiring October 2026), "Policy enforcement" toggle is greyed out.
-- **Admin MFA (3.33/10)** — Break-glass accounts excluded from MFA per Microsoft best practice. Score penalises every admin without MFA. The remaining 6.67 points are unachievable without violating emergency access design.
-- **MFA registration (0.67/9)** — Bulk phone assignment via Graph API doesn't count as completed registration. Users must interactively register at mysignins.microsoft.com.
+- **Admin MFA (3.33/10)** — Break-glass accounts excluded from MFA per Microsoft best practice. Score penalises every admin without MFA. The remaining points are unachievable without violating the emergency access design.
+- **MFA registration (1.33/9)** — Bulk phone assignment via Graph API doesn't fully count as completed registration. Users must interactively register at mysignins.microsoft.com.
 - **Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Not available on a developer tenant.
 
 ## What I did
@@ -56,18 +60,19 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 - Adjusted CA-Admin Grant from phishing-resistant to classic MFA (no FIDO2/Bluetooth).
 - Removed admin account from all CA exclusions, confirmed enforcement (AADSTS50079).
 - Expanded SSPR to All Users, bulk-assigned MFA phone method via Graph API.
-- Investigated Score — discovered legacy IP blade bug, confirmed toggle is greyed out.
-- Final Score after refresh: 43.82%.
+- Investigated Score — initially found 0 points for risk policies, documented as a legacy IP blade bug.
+- After 4+ days, Score finally recognised CA-based risk policies — jumped from 43.82% to 63.07%.
+- MFA registration also slightly increased (0.67 → 1.33) without additional user action.
 
 ## Result
 
-Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Score improved from 38.03% to 43.82%. Remaining ~33 unachievable points documented with root cause (deprecated legacy blade, break-glass design, Purview license).
+Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Score improved from 38.03% to 63.07%. Risk policies (0/14 → 12.7/14) were eventually recognised after a multi-day sync delay. Remaining gaps documented: break-glass MFA conflict (3.33/10), incomplete interactive MFA registration (1.33/9), Purview license requirement (0/5).
 
 ## Lessons learned
 
 - "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — even at the same MFA level, they behave differently.
 - Phishing-resistant MFA via Authenticator requires Bluetooth for cross-device authentication. Without it, you need a physical FIDO2 key or Windows Hello.
-- Identity Secure Score checks deprecated legacy Identity Protection policies, not CA-based risk policies. Legacy blade is read-only — those points are permanently unachievable.
+- Identity Secure Score initially showed 0 points for CA-based risk policies (known issue since 2022). After 4+ days, it synced and recognised them. The documented 24-hour refresh cycle is misleading — real sync can take much longer. Don't assume it's a permanent bug.
 - Break-glass accounts without MFA are a correct design, but Score penalises it. Document the exception rather than "fix" it.
 
 ## Evidence
