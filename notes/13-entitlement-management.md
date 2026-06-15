@@ -87,7 +87,7 @@ a resilient and auditable governance process.
 
 ---
 
-## Lessons Learned
+## Lessons learned
 
 - Entitlement Management enables scalable self-service access governance.
 - Using catalog owners (sponsors) is the most reliable approval model.
