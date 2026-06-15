@@ -75,7 +75,7 @@ addressed in a subsequent task.
 
 ---
 
-## Lessons Learned
+## Lessons learned
 
 - App registrations define application identities, not user access.
 - Client ID and Object ID serve different purposes and must not be confused.
