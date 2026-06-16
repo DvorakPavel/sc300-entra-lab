@@ -1,4 +1,4 @@
-# SC-300 Entra ID Lab — Hands-on Identity & Access Management
+# SC-300 Entra ID Lab - Hands-on Identity & Access Management
 
 33 hands-on tasks. Real M365 tenant. Real problems. Real fixes.
 
