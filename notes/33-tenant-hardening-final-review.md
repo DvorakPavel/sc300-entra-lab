@@ -41,7 +41,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 | Recommendation | Before | After | Change |
 |---|---|---|---|
 | User risk policy | 0/7 | 6.48/7 | CA risk policies finally recognized after 4+ days |
-| Sign-in risk policy | 0/7 | 6.22/7 | Same — severe delay, not the "permanent bug" initially assumed |
+| Sign-in risk policy | 0/7 | 6.22/7 | Same as User risk policy |
 | Legacy authentication | 7.11/8 | 7.41/8 | Minor improvement |
 | Admin MFA | 0/10 | 3.33/10 | Admin removed from CA exclusions |
 | MFA registration | 0.67/9 | 1.33/9 | Slight increase |
