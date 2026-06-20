@@ -1,7 +1,7 @@
 # Task 33 – Tenant Hardening & Final Review
 
 **Date:**
-2026-06-11 — 2026-06-15
+2026-06-11 - 2026-06-15 - 2026-06-20 
 
 ## Goal
 
@@ -44,13 +44,13 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 | Sign-in risk policy | 0/7 | 6.22/7 | Same as User risk policy |
 | Legacy authentication | 7.11/8 | 7.41/8 | Minor improvement |
 | Admin MFA | 0/10 | 3.33/10 | Admin removed from CA exclusions |
-| MFA registration | 0.67/9 | 1.33/9 | Slight increase |
+| MFA registration | 0.67/9 | 8.33/9 | Increased |
 | SSPR | 0 | scored | Expanded from pilot group to All Users |
 
 ### What still didn't improve and why
 
 - **Admin MFA (3.33/10)** — Break-glass accounts excluded from MFA per Microsoft best practice. Score penalises every admin without MFA. The remaining points are unachievable without violating the emergency access design.
-- **MFA registration (1.33/9)** — Bulk phone assignment via Graph API doesn't fully count as completed registration. Users must interactively register at mysignins.microsoft.com.
+- **MFA registration (8.33/9)** — Bulk phone assignment via Graph API doesn't fully count as completed registration. Users must interactively register at mysignins.microsoft.com.
 - **Insider Risk (0/5)** — Requires Microsoft Purview with Adaptive Protection. Not available on a developer tenant.
 
 ## What I did
@@ -61,18 +61,18 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 - Removed admin account from all CA exclusions, confirmed enforcement (AADSTS50079).
 - Expanded SSPR to All Users, bulk-assigned MFA phone method via Graph API.
 - Investigated Score — initially found 0 points for risk policies, documented as a legacy IP blade bug.
-- After 4+ days, Score finally recognised CA-based risk policies — jumped from 43.82% to 63.07%.
-- MFA registration also slightly increased (0.67 → 1.33) without additional user action.
+- After 6+ days, Score finally recognised CA-based risk policies — jumped from 43.82% to 73.29%.
+- MFA registration also increased (0.67 → 1.33 → 8.33) without additional user action.
 
 ## Result
 
-Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Score improved from 38.03% to 63.07%. Risk policies (0/14 → 12.7/14) were eventually recognised after a multi-day sync delay. Remaining gaps documented: break-glass MFA conflict (3.33/10), incomplete interactive MFA registration (1.33/9), Purview license requirement (0/5).
+Tenant hardened with 8 enforced and 3 intentionally Report-only CA policies. Score improved from 38.03% to 63.07%. Risk policies (0/14 → 12.7/14) were eventually recognised after a multi-day sync delay. Remaining gaps documented: break-glass MFA conflict (3.33/10), MFA registration (8.33/9), Purview license requirement (0/5).
 
 ## Lessons learned
 
 - "Require authentication strength" and "Require multifactor authentication" in CA Grant controls are NOT interchangeable — even at the same MFA level, they behave differently.
 - Phishing-resistant MFA via Authenticator requires Bluetooth for cross-device authentication. Without it, you need a physical FIDO2 key or Windows Hello.
-- Identity Secure Score initially showed 0 points for CA-based risk policies (known issue since 2022). After 4+ days, it synced and recognised them. The documented 24-hour refresh cycle is misleading — real sync can take much longer. Don't assume it's a permanent bug.
+- Identity Secure Score initially showed 0 points for CA-based risk policies (known issue since 2022). After 6+ days, it synced and recognised them. The documented 24-hour refresh cycle is misleading — real sync can take much longer. Don't assume it's a permanent bug.
 - Break-glass accounts without MFA are a correct design, but Score penalises it. Document the exception rather than "fix" it.
 
 ## Evidence
