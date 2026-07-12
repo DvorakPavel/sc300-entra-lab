@@ -81,7 +81,7 @@ Every task maps directly to an [SC-300 exam objective](https://learn.microsoft.c
 | MFA enforcement | All users and admins |
 | Risk-based policies | Sign-in risk + User risk (enforced) |
 | Legacy authentication | Blocked |
-| Identity Secure Score | 38% → 63.07% (see [Key Takeaways](#key-takeaways)) |
+| Identity Secure Score | 38% → 73.29% (see [Key Takeaways](#key-takeaways)) |
 
 ## Repository Structure
 
