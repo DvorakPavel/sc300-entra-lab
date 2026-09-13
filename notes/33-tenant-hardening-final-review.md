@@ -34,7 +34,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 ## Identity Secure Score
 
 - Before: 38.03%
-- After: 63.07%
+- After: 78.84%
 
 ### What improved
 
@@ -61,7 +61,7 @@ Transition key Conditional Access policies from Report-only to Enforced mode, ha
 - Removed admin account from all CA exclusions, confirmed enforcement (AADSTS50079).
 - Expanded SSPR to All Users, bulk-assigned MFA phone method via Graph API.
 - Investigated Score — initially found 0 points for risk policies, documented as a legacy IP blade bug.
-- After 6+ days, Score finally recognised CA-based risk policies — jumped from 43.82% to 73.29%.
+- After 6+ days, Score finally recognised CA-based risk policies — jumped from 43.82% to 78.84%.
 - MFA registration also increased (0.67 → 1.33 → 8.33) without additional user action.
 
 ## Result
