@@ -100,7 +100,7 @@ Things I learned the hard way — not from docs, but from doing:
 - **Global Admin can't do everything** — Custom Security Attributes require a dedicated role (Attribute Definition Administrator). Global Admin is not enough.
 - **CAE is on by default** — There's no "enable" button. The Conditional Access option is for restricting it, not turning it on.
 - **Report-only → Enforced is the real workflow** — Deploy in report-only, monitor sign-in logs for impact, then enforce. This lifecycle was applied across all 11 CA policies in this lab.
-- **Identity Secure Score needs patience** — Score initially showed 0 points for CA-based risk policies. After 4+ days, it finally recognised them, jumping the score from 38% to 73%. The documented 24-hour refresh cycle is misleading — real sync can take significantly longer.
+- **Identity Secure Score needs patience** — Score initially showed 0 points for CA-based risk policies. After 4+ days, it finally recognised them, jumping the score from 38% to 78%. The documented 24-hour refresh cycle is misleading — real sync can take significantly longer.
 - **Break-glass accounts vs. Secure Score** — Break-glass accounts must be excluded from MFA per Microsoft's own best practice, but Score penalises every admin without MFA. The correct configuration and the good score are mutually exclusive.
 
 ## Tools & Technologies
