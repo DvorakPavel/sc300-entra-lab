@@ -137,7 +137,7 @@ evidence/task-10-authentication-strengths/
 ├── task-10-03-custom-auth-strength-redacted.png
 ├── task-10-04-ca-grant-control-redacted.png
 ├── task-10-05-security-info-passkey-aaguid-redacted.png
-├── task-10-06-signin-ca-policy-success-redacted.png
+├── task-10-06-signin-ca-policy-report-only-success-redacted.png
 ├── task-10-07-signin-ca-policy-on-success-redacted.png
 └── task-10-08-signin-report-only-phase1-redacted.png
 ```
